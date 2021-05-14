@@ -22,25 +22,20 @@ var addTwoNumbers = function(l1, l2) {
     let current = head
     let tmp_sum = 0
 
-    while (l1 && l2) {
+    while (l1 || l2) {
         current.next = new ListNode(tmp_sum)
         current = current.next
 
-        current.val += l1.val + l2.val
-        l1 = l1.next
-        l2 = l2.next
+        current.val += (l1 ? l1.val : 0) + (l2 ? l2.val : 0)
+        l1 = l1?.next
+        l2 = l2?.next
 
         tmp_sum = current.val / 10 | 0
         current.val %= 10
     }
 
-    current.next = l1 || l2
-    if (current.text) {
-        current = current.next
-        current.val += tmp_sum
-    } else if (tmp_sum) {
+    if (tmp_sum)
         current.next = new ListNode(tmp_sum)
-    }
 
     return head.next
 };
@@ -75,22 +70,22 @@ function chainToArray(node) {
 }
 
 
-// console.log(chainToArray(addTwoNumbers(
-//         makeChain([2, 4]), makeChain([5, 6, 4])
-// )))
-
-// console.log(chainToArray(addTwoNumbers(
-//     makeChain([0, 2, 4]), makeChain([5, 6, 4])
-// )))
-
-// console.log(chainToArray(addTwoNumbers(
-//     makeChain([0]), makeChain([5, 6, 4])
-// )))
-
-// console.log(chainToArray(addTwoNumbers(
-//     makeChain([9, 9, 9]), makeChain([9, 9, 9])
-// )))
+console.log(chainToArray(addTwoNumbers(
+        makeChain([2, 4]), makeChain([5, 6, 4])
+)))
 
 console.log(chainToArray(addTwoNumbers(
-    makeChain([9, 9]), makeChain([9])
+    makeChain([0, 2, 4]), makeChain([5, 6, 4])
+)))
+
+console.log(chainToArray(addTwoNumbers(
+    makeChain([0]), makeChain([5, 6, 4])
+)))
+
+console.log(chainToArray(addTwoNumbers(
+    makeChain([9, 9, 9]), makeChain([9, 9, 9])
+)))
+
+console.log(chainToArray(addTwoNumbers(
+    makeChain([9, 9, 9]), makeChain([1])
 )))
