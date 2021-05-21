@@ -22,11 +22,9 @@ var inorderTraversal = function(root) {
 
     let f = function(node) {
         if (!node) return
-        if (node.left)
-            f(node.left)
+        f(node.left)
         r.push(node.val)
-        if (node.right)
-            f(node.right)
+        f(node.right)
     };
     f(root);
     return r;
