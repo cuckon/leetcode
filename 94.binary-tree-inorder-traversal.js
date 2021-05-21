@@ -19,15 +19,19 @@
  */
 var inorderTraversal = function(root) {
     let r = [];
-
-    let f = function(node) {
-        if (!node) return
-        f(node.left)
-        r.push(node.val)
-        f(node.right)
-    };
-    f(root);
-    return r;
+    let stack = []
+    let current = root
+    while(stack.length || current) {
+        if (current) {
+            stack.push(current)
+            current = current.left
+        } else {
+            current = stack.pop()
+            r.push(current.val)
+            current = current.right
+        }
+    }
+    return r
 };
 // @lc code=end
 
