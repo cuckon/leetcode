@@ -10,19 +10,26 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    let res = ['', ...new Set(s.split(''))];
+
+    const res = [['', ...new Set(s.split(''))]];
     let inner;
     for(let len = 2; len <= s.length; len++) {
+        res[len - 1] = []
+
         for(let start = 0; start <= s.length - len; start++) {
             inner = s.substr(start + 1, len - 2);
-            if (s[start] == s[start + len - 1] && res.includes(inner)) {
-                str = s[start] + inner + s[start + len - 1]
-                if (!res.includes(str))
-                    res.push(str);
+            if (s[start] == s[start + len - 1] &&
+                (res[len - 3]==undefined || res[len - 3].includes(inner)))
+            {
+                str = s[start] + inner + s[start + len - 1];
+                if (!res[len - 1].includes(str))
+                    res[len - 1].push(str);
             }
         }
     }
-    return res.length && res[res.length - 1] || '';
+    for (let i = res.length - 1; i >=0; i --)
+        if (res[i].length)
+            return res[i][res[i].length - 1]
 };
 // @lc code=end
 
